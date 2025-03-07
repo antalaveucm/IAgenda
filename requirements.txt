@@ -1,0 +1,9 @@
+click==8.1.7
+requests==2.31.0
+python-dotenv==1.0.0
+pyyaml==6.0.1
+sentence-transformers==2.2.2
+huggingface-hub==0.4.0  # Versión específica
+networkx==3.2.1
+pyvis==0.3.2
+numpy==1.26.2
