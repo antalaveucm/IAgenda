@@ -1,0 +1,32 @@
+# IAgenda - Gestor Inteligente de Proyectos con IA
+
+Organiza ideas, proyectos y entregables usando IA, con integración de GitHub y visualización de grafos.
+
+## Características
+
+- Clasificación automática de entradas (idea/proyecto/entregable)
+- Conexiones semánticas entre conceptos usando IA
+- Interfaz de línea de comandos (CLI)
+- Visualización interactiva del grafo
+- Sincronización con GitHub Issues
+- Resumen de tareas pendientes
+
+## Instalación
+
+1. Clonar repositorio:
+```bash
+git clone https://github.com/tu-usuario/IAgenda.git
+cd IAgenda
+
+2. Uso:
+# Añadir nueva entrada
+agenda add "Título" --content "Descripción" --type [idea|proyecto|entregable] --tags "tag1,tag2"
+
+# Buscar contenido
+agenda search "término de búsqueda"
+
+# Generar visualización
+agenda visualize
+
+# Mostrar resumen
+agenda resumen
