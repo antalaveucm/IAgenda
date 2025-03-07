@@ -6,6 +6,7 @@ from utils.graph_generator import generate_graph
 from sentence_transformers import SentenceTransformer
 import numpy as np
 import pickle
+from datetime import datetime
 
 # Configuración de modelo de IA
 model = SentenceTransformer('paraphrase-MiniLM-L6-v2')
@@ -70,6 +71,48 @@ def visualize():
     """Genera la visualización del grafo"""
     generate_graph()
     click.echo("🌐 Grafo generado en docs/index.html")
+
+@cli.command()
+def resumen():
+    """Muestra un resumen de tareas pendientes"""
+    issues = search_issues()
+    
+    if not issues:
+        click.secho("\n✅ ¡No hay tareas pendientes!", fg="green")
+        return
+
+    # Agrupar por tipo
+    categorias = {
+        "idea": [],
+        "proyecto": [],
+        "entregable": []
+    }
+    
+    for issue in issues:
+        categorias[issue["type"]].append(issue)
+    
+    # Mostrar resumen
+    click.secho("\n📊 RESUMEN DE TAREAS PENDIENTES", bold=True)
+    click.secho("==================================\n", fg="blue")
+    
+    for tipo, items in categorias.items():
+        if not items:
+            continue
+            
+        color = {
+            "idea": "cyan",
+            "proyecto": "yellow",
+            "entregable": "magenta"
+        }[tipo]
+        
+        click.secho(f"  {tipo.upper()} ({len(items)})", fg=color, bold=True)
+        
+        for idx, item in enumerate(items, 1):
+            fecha = datetime.strptime(item["created_at"], "%Y-%m-%d").strftime("%d/%m/%Y")
+            click.echo(f"    {idx}. {item['title']} ({fecha})")
+            click.secho(f"       » {item['content']}", fg="white")
+        
+        click.echo()
 
 if __name__ == '__main__':
     cli()

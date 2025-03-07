@@ -7,3 +7,4 @@ huggingface-hub==0.4.0  # Versión específica
 networkx==3.2.1
 pyvis==0.3.2
 numpy==1.26.2
+python-dateutil==2.8.2

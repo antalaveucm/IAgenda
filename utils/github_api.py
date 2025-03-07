@@ -33,8 +33,9 @@ def search_issues():
     """Obtiene todos los issues del repositorio"""
     url = f"https://api.github.com/repos/{os.getenv('GITHUB_USER')}/{os.getenv('REPO_NAME')}/issues"
     headers = {"Authorization": f"Bearer {os.getenv('GITHUB_TOKEN')}"}
+    params = {"state": "open"}  # Solo issues abiertos
     
-    response = requests.get(url, headers=headers)
+    response = requests.get(url, headers=headers, params=params)
     issues = []
     
     for issue in response.json():
@@ -44,7 +45,8 @@ def search_issues():
             "title": issue["title"],
             "content": content["content"],
             "type": content["type"],
-            "tags": content["tags"]
+            "tags": content["tags"],
+            "created_at": issue["created_at"][:10]  # Fecha en formato YYYY-MM-DD
         })
     
     return issues
